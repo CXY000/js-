@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+			body{background-color: #1E1E1E}
+            *{padding:0;margin: 0;list-style:none;}
+            .banner-box{width: 800px;height:340px;margin-left: 3.6%; margin-top:100px;position:relative;text-align:center;overflow: hidden;}
+            .banner-box .img{width:5800px;position:absolute;top:0;left:0;}
+            .banner-box .img li{float:left; overflow: hidden;}
+            .banner-box .img li img{width: 800px; height: 456px;}
+            .banner-box .li{width:100%;position:absolute;left:0;bottom:10px;}
+            .banner-box .li li{width:10px;height:10px;background:#ccc;border-radius:50%;display:inline-block;margin:0 3px;cursor:pointer;}
+            .banner-box .but{position: absolute;top:50%;margin-top:-30px;width:38px;height:60px;line-height:60px;text-align:center;font-size: 30px;background:rgba(0,0,0,0.5);color:#fff;font-family: '宋体';cursor:pointer;display: none;}
+            .banner-box:hover .but{display:block;}
+            .banner-box .but-left{left:0;}
+            .banner-box .but-right{right:0;}
+            .banner-box .li .index{background:#f60;width: 30px;border-radius:10px;}
+            .banner-box .bar{ position: absolute; left: 0; bottom: 0; height: 5px; background-color: hsla(24,100%,50%,0.5); }
+        </style>
+</head>
+<body>
+<div class='banner-box'>
+<ul class='img'>
+<li><img src="images/1.jpg" alt="" /></li>
+<li><img src="images/2.jpg" alt="" /></li>
+<li><img src="images/3.jpg" alt="" /></li>
+<li><img src="images/4.jpg" alt="" /></li>
+</ul>
+<ul class='li'></ul>
+<!--<div class='but but-left'>&lt;</div>-->
+<!--<div class='but but-right'>&gt;</div>-->
+<!--<div class='bar'></div>-->
+</div>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+            var oSj = 5000;
+            var i = 0;
+            var bar = $(".banner-box .bar");
+            var oImg = $(".banner-box .img");//获取图片盒子
+            var oImgfirst= $('.banner-box .img li:first').clone();//复制第一张图片
+            oImg.append(oImgfirst);//将复制的第一张图片放到最后
+            var imgNum = $(".banner-box .img li").size();//获取图片数量
+
+            //根据图片个数添加圆点按钮
+            for(var j=1;j<=imgNum-1;j++){
+                $('.banner-box .li').append('<li></li>');
+            }
+
+            //给第一个按钮添加选中样式
+            $('.banner-box .li li:first').addClass('index');
+
+
+            //点击向右轮播
+            $(".but-right").click(function(){
+                int();
+            });
+
+            //点击向左轮播
+            $(".but-left").click(function(){
+                bar.stop().css('width',0);
+                i--;
+                if(i == -1){
+                    $('.banner-box .img').css('left',-(imgNum-1)*800);//用CSS进行图片位置变换，达到无缝拼接效果
+                    i = imgNum-2;
+                }
+                oImg.stop().animate({left:-i*800},500);//动画效果
+                clearInterval(oTime);
+                oTime = setInterval(function(){
+                    int();
+                },oSj);
+                barAniMate();//进度条函数动画效果
+                $(".banner-box .li li").eq(i).addClass('index').siblings().removeClass('index');//给相应的按钮添加样式
+            });
+
+            //鼠标移动到圆点后轮播
+            $(".banner-box .li li").hover(function() {
+                clearInterval(oTime);//清除定时器
+                bar.stop().css('width',0);
+                var index = $(this).index();
+                i=index;
+                oImg.stop().animate({left:-index*800},500);//动画效果
+                bar.stop().css('width',0);
+                $(this).addClass('index').siblings().removeClass('index');//给相应的按钮添加样式
+            },function(){
+                barAniMate();//进度条函数动画效果
+                oTime = setInterval(function(){
+                    int();
+                },oSj);
+            });
+
+            //自动轮播
+            var oTime = setInterval(function(){
+                int();
+            },oSj);
+
+            barAniMate();//进度条函数动画效果
+
+            //进度条函数动画效果
+            function barAniMate(){
+                bar.animate({width:'100%'},oSj,function(){
+                    $(this).css('width',0);
+                });
+            }
+
+            //自动轮播函数
+            function int(){
+                bar.stop().css('width',0);
+                i++;
+                if(i == imgNum){
+                    oImg.css('left',0);//用CSS进行图片位置变换，达到无缝拼接效果
+                    i = 1;
+                }
+                oImg.stop().animate({left:-i*800},500);//动画效果
+                barAniMate();//进度条函数动画效果
+                clearInterval(oTime);
+                oTime = setInterval(function(){
+                    int();
+                },oSj);
+                if(i == imgNum-1){
+                    $(".banner-box .li li").eq(0).addClass('index').siblings().removeClass('index');//给相应的按钮添加样式
+
+                }else{
+                    $(".banner-box .li li").eq(i).addClass('index').siblings().removeClass('index');//给相应的按钮添加样式
+                }
+            }
+        </script>
+</body>
+</html>

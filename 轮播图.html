@@ -1,0 +1,184 @@
+<!doctype html>
+<title>轮播图</title>
+<meta charset="utf-8">
+<style>
+	/*处理css样式*/
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	
+	#lunbo{
+		width:700px;
+		height:400px;
+		border:1px solid red;
+		margin:20px auto;
+		position:relative;
+	}
+	
+	/*设置li的大小*/
+	#lunbo>.img>li{
+		width:700px;
+		height:400px;
+		float:left;
+		display:none;
+	}
+	
+	/*设置li的图片大小*/
+	#lunbo>.img>li img{
+		width:700px;
+		height:400px;
+	}
+	
+	/*设置数字*/
+	#lunbo>.num{
+		position:absolute;
+		top:350px;
+		left:220px;
+	}
+	#lunbo>.num li{
+		width:40px;
+		height:40px;
+		background:#6699ff;
+		float:left;
+		border-radius:50%;
+		text-align:center;
+		line-height:40px;
+		padding:2px;
+		margin-left:10px;
+	}
+	
+	/*设置left right*/
+	#lunbo>div{
+		width:100px;
+		height:200px;
+		background:black;
+		opacity:0.6;
+		position:absolute;
+		top:100px;
+		display:none;
+	}
+	.left{
+		left:0;
+		
+	}
+	.right{
+		right:0;
+		
+	}
+</style>
+<!--设置容器-->
+<div id="lunbo">
+	<!--设置显示的图片-->
+	<ul class="img">
+		<li style="display:block"><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<!--<li><img src="images/005.jpg"></li>-->
+	</ul>
+	<!--设置数字-->
+	<ul class="num">
+		<li style="background:#ff6699">1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+	<!--设置按钮-->
+	<div class="left"></div>
+	<div class="right"></div>
+</div>
+<script src="jquery-1.8.3.min.js"></script>
+<script>
+	//alert($)
+	//自动轮播 点击数字显示对应图片 点击下一张上一张
+	
+	//声明下标
+	var now=0;
+	//获取li标签的长度
+	var len=$('#lunbo>.img>li').length;
+	console.log(len)
+	
+	function run(){
+		//自动轮播
+		s=setInterval(function(){
+			//当前隐藏 图片数字
+			$('#lunbo>.img>li').hide();
+			$('#lunbo>.num>li').css('background','#6699ff');
+			
+			//下一张显示 
+			//判断now
+			if(now>=len-1){
+				now=0;
+			}else{
+				now++;
+			}
+			
+			//显示数字和图片
+			$('#lunbo>.img>li:eq('+now+')').show();
+			$('#lunbo>.num>li:eq('+now+')').css('background','#ff6699');
+		},1000)
+	}
+	
+	run();
+	
+	//鼠标移入移出事件
+	$('#lunbo').mouseover(function(){
+		//清除定时 显示箭头
+		clearInterval(s);
+		$('.left,.right').css('display','block');
+	}).mouseout(function(){
+		run();
+		$('.left,.right').css('display','none');
+	})
+	
+	
+	//数字对应图片
+	$('#lunbo>.num>li').mouseover(function(){
+		//清除定时 
+		clearInterval(s);
+		//当前隐藏 图片数字
+		$('#lunbo>.img>li').hide();
+		$('#lunbo>.num>li').css('background','#6699ff');
+		
+		//获取当前li的下标
+		now=$(this).index();
+		//alert(now);
+		$('#lunbo>.img>li:eq('+now+')').show();
+		$('#lunbo>.num>li:eq('+now+')').css('background','#ff6699');	
+	})
+	
+	//left right的点击
+	$('.left').click(function(){
+		//当前隐藏 图片数字
+		$('#lunbo>.img>li').hide();
+		$('#lunbo>.num>li').css('background','#6699ff');
+		
+		now--;
+		
+		//往左点 --
+		if(now<0){
+			now=len-1;
+		}	
+		//显示图片数字
+		$('#lunbo>.img>li:eq('+now+')').show();
+		$('#lunbo>.num>li:eq('+now+')').css('background','#ff6699');	
+	})
+	
+	//right的点击
+	$('.right').click(function(){
+		//当前隐藏 图片数字
+		$('#lunbo>.img>li').hide();
+		$('#lunbo>.num>li').css('background','#6699ff');
+		now++;
+		//往左点 --
+		if(now>len-1){
+			now=0;
+		}
+		//显示图片数字
+		$('#lunbo>.img>li:eq('+now+')').show();
+		$('#lunbo>.num>li:eq('+now+')').css('background','#ff6699');
+	})
+</script>

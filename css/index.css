@@ -1,0 +1,57 @@
+/*广告图点击删除*/
+.advert{
+	width: 100%;
+	height: 80px;
+}
+/*点击之后*/
+.hide{
+	display:none;
+}
+.advert-box{
+	width: 1200px;
+	height: 80px;
+	margin: 0 auto;
+}
+.advert-box>img{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.advert-box>button{
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 10px;
+	right: 70px;
+	border: none;
+	background-color: #333333;
+	padding: 1px 4px;
+	color: #fff;
+	font-size: 12px;
+	outline:none;
+	opacity: .4;
+}
+/*广告图点击删除结束*/
+
+/*二级菜单开始*/
+.nav{
+	width: 100%;
+}
+.navbox{
+	width: 1200px;
+	margin: 0 auto;
+	margin-top: 20px;
+	background-color: #ccc;
+	height: 20px;
+}
+.second-leveal{
+	background-color: #ECECEC;
+	width: 200px;
+}
+.second-leveal>ul li{
+	float: left;
+	width: 63px;
+	text-align: center;
+}
+/*二级菜单结束*/

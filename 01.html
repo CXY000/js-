@@ -1,0 +1,252 @@
+<!DOCTYPE html>    
+<html>    
+<head>    
+<meta charset=" utf-8">    
+<meta name="author" content="http://www.jb51.net/" />  
+<title>CSS如何实现弹出一个全屏灰黑色透明遮罩效果-脚本之家</title> 
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="bookmark"href="/favicon.ico" />
+<style type="text/css"> 
+* 
+{ 
+ margin:0px; 
+ padding:0px; 
+} 
+.zhezhao 
+{ 
+ width:100%; 
+ height:100%; 
+ background-color:rgb(55, 58, 71); 
+ opacity:.7;
+ -moz-opacity:0.5; 
+ opacity:0.6; 
+ position:absolute; 
+ left:0px; 
+ top:0px; 
+ display:none; 
+ z-index:1000; 
+} 
+.login 
+{ 
+ width:70%; 
+ height:180px; 
+ position:absolute; 
+ top:50px; 
+ left:50%; 
+ background-color:#fff; 
+ margin-left:-35%; 
+ display:none; 
+ z-index:1500; 
+} 
+.login button{
+	padding:10px;
+	background-color:#fff;
+	border:none;
+	color:#000;
+	float: right;
+	cursor: pointer;
+	outline:none;
+}
+.login h1{
+	font-size: 30px;
+	font-weight: normal;
+	text-align: center;
+	margin-top: 40px;
+}
+.login-title{
+	text-align: center;
+	padding: 26px 0;
+}
+.login-title p{
+	font-size: 16px;
+	color: #666666;
+}
+.login-title p span{
+	color: #00b4f8;
+}
+.submission{
+	background-color: #fff;
+	margin-top: -20px;
+	padding-top: 20px;
+	height: 300px;
+	width: 100%;
+}
+/*.submission form{
+	width: 92%;
+	margin: 0 auto;
+}*/
+.login-section{
+	border: 1px solid #dcdcdc;
+	height: 46px;
+	width: 34%;
+	margin-left: 60px;
+	padding: 0 20px;
+	display: flex;
+	float: left;
+	margin-bottom: 20px;
+	position: relative;
+}
+.login-section input{
+	border: none;
+	outline: none;
+	flex: 1;
+	height: 40px;
+	margin-top: 3px;
+	padding: 0 10px;
+}
+.login-section span{
+	line-height: 46px;
+	color: #666666;
+	font-size: 14px;
+}
+.login-section span img{
+	position: absolute;
+	right: -6px;
+	cursor: pointer;
+}
+.contenta 
+{ 
+ margin-top:50px; 
+ color:red; 
+ line-height:200px; 
+ height:200px; 
+ text-align:center; 
+} 
+.contenta button{
+	 background-color:#fff;
+ border:1px solid #000;
+ padding:10px;
+}
+.contenta button:hover{
+	background:#666;
+	color:#fff;
+}
+
+
+
+
+</style> 
+<script src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"> 
+window.onload=function() 
+{ 
+ var zhezhao=document.getElementById("zhezhao"); 
+ var login=document.getElementById("login"); 
+ var bt=document.getElementById("bt"); 
+ var btclose=document.getElementById("btclose"); 
+  
+ bt.onclick=function() 
+ { 
+  zhezhao.style.display="block"; 
+  login.style.display="block"; 
+ } 
+ btclose.onclick=function() 
+ { 
+  zhezhao.style.display="none"; 
+  login.style.display="none";  
+ } 
+} 
+
+
+
+
+$(function(){
+				
+				//点击右边箭头icon时候
+				$(".submission .fa").on("click",function(event){
+					$(this).parent().next().toggle();//ul弹窗展开
+					if($(this).hasClass("fa-caret-down")){
+						$(this).removeClass("fa-caret-down").addClass("fa-caret-up")//点击input选择适合，小图标动态切换
+					}else{
+						$(this).addClass("fa-caret-down").removeClass("fa-caret-up")//点击input选择适合，小图标动态切换
+					}
+					if (event.stopPropagation) {   
+			        	// 针对 Mozilla 和 Opera   
+			        	event.stopPropagation();   
+			        }else if (window.event) {   
+			        	// 针对 IE   
+			        	window.event.cancelBubble = true;   
+			        }  
+				});
+				
+				//
+				$(".selectUl li").click(function(event){
+					event=event||window.event; 
+					$(this).addClass("actived_li").siblings().removeClass("actived_li");//点击当前的添加。actived_li这个类；其他的移除这个类名
+					var oliName = $(this).attr("oliName");//定义一个name属性，获取点击的元素属性赋值到当前，方便动态化传值
+					var oliId = $(this).attr("oliId");//定义一个id属性，获取点击的元素属性赋值到当前，方便数据交互传值
+					$(this).parent().prev().children().val(oliName); //把当前点击的name赋值到显示的input的val里面
+					$(this).parent().prev().children().attr("oliName",oliName);//把当前点击的oliName赋值到显示的input的oliName里面
+					$(this).parent().prev().children().attr("oliId",oliId);//把当前点击的oliId赋值到显示的input的oliId里面
+				});
+				
+				//点击任意地方隐藏下拉
+				$(document).click(function(event){
+					event=event||window.event; 
+					$(".login-section .fa").removeClass("fa-caret-up").addClass("fa-caret-down")//当点隐藏ul弹窗时候，把小图标恢复原状
+					$(".selectUl").hide();//当点击空白处，隐藏ul弹窗
+				});
+				
+			})
+</script> 
+</head> 
+<body> 
+  <div class="zhezhao" id="zhezhao"></div> 
+  <div class="login" id="login">
+  	<button id="btclose"><img src="http://eicoinc.com/wp-content/themes/eico2017/images/contact-close.png"/></button>
+  	<h1>
+  		合作机会
+  	</h1>
+  	<div class="login-title">
+  		<p>一封邮件或许正是成就一个出色产品的开端。</p>
+  		<p>欢迎填写表格或发送合作邮件至：<span>service@eicoinc.com</span>，您也可以直接拨打咨询热线：<span>010-59273171。</span></p>
+  	</div>
+  	<div class="submission">
+	  	<form bindsubmit="Submit" bindreset="Reset" action=""catchsubmit="Submit" catchreset="Reset" method="post">
+	  		<div class="login-section" id="login-section">
+	  			<span>您的姓名:</span>
+	  			<input name="ss" bindchange="username" value=""/>
+	  			<span>*</span>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>公司名称:</span>
+	  			<input name="ssss" bindchange="username"/>
+	  			<span>*</span>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>您的邮箱:</span>
+	  			<input name="ssss" bindchange="username"/>
+	  			<span>*</span>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>联系电话:</span>
+	  			<input name="ssss" bindchange="username"/>
+	  			<span>*</span>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>公司网站:</span>
+	  			<input name="ssss" bindchange="username"/>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>所在城市:</span>
+	  			<input name="textfield_name2" bindchange="username"/>
+	  			<span><img src="http://eicoinc.com/wp-content/themes/eico2017/images/dropdown.png"/>
+	  				
+	  			</span>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>所属行业:</span>
+	  			<input name="ssss" bindchange="username"/>
+	  			<span><img src="http://eicoinc.com/wp-content/themes/eico2017/images/dropdown.png"/></span>
+	  		</div>
+	  		<div class="login-section">
+	  			<span>期望开始时间:</span>
+	  			<input name="ssss" bindchange="username"/>
+	  			<span><img src="http://eicoinc.com/wp-content/themes/eico2017/images/dropdown.png"/></span>
+	  		</div>
+		</form>
+	</div>
+  </div>  
+  <div class="contenta"><button id="bt">联系我们</button></div> 
+</body> 
+</html>

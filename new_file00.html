@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<style>
+			.input{
+				width: 500px;
+				margin: 0 auto;
+				display: flex;
+			}
+			li{
+				flex: 1;
+				position: relative;
+			}
+			a{
+				/*color: #000;*/
+			}
+			.mr a{
+				color: #00DD00;
+			}
+			.top{
+				position: relative;
+				top: -10px;
+				left: 10px;
+			}
+			.bottom{
+				position: relative;
+				top: 0;
+				left: -7px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" onfocus="this.placeholder=''" placeholder="你好啊"  onblur="this.placeholder='你好啊'" style="outline: none;"/>
+		
+		<ul class="input">
+			<li class="mr"><a href="#">千玺</a></li>
+			<li><a href="#" class="a" flag=1 >老薛</a>
+				<img class="top" src="images/top_icon_normal@2x.png"/>
+				<!--<img src="images/top_icon_selected@2x.png" alt="" />-->
+				<img class="bottom" src="images/bottom_icon_normal@2x.png"/>
+				<!--<img src="images/bottom_icon_selected@2x.png" alt="" />-->
+			</li>
+			<li><a href="#" class="">大佬</a></li>
+		</ul>
+		
+	</body>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script>
+	    
+		$(".input li").click(function(){
+			$(this).addClass('mr').siblings().removeClass("mr");
+			var aa = $('.mr a').attr("flag");
+//			alert(aa)
+			if (aa == 1) {
+				$(".top").attr("src", "images/top_icon_selected@2x.png");
+				$('.mr a').attr("flag",2);
+				$(".bottom").attr("src", "images/bottom_icon_normal@2x.png");
+			}else if(aa == 2){
+				$(".bottom").attr("src", "images/bottom_icon_selected@2x.png");
+				$('.mr a').attr("flag",1);
+				$(".top").attr("src", "images/top_icon_normal@2x.png");
+			}else{
+				$('.a').attr("flag",1);
+				$(".bottom").attr("src", "images/bottom_icon_normal@2x.png");
+				$(".top").attr("src", "images/top_icon_normal@2x.png");
+			}
+		})
+	</script>
+</html>

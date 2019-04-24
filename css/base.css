@@ -1,0 +1,18 @@
+*{margin: 0;padding: 0;}/*将所有的HTML元素的默认边距清零*/*/
+html body{font-size:12px; font-family: "宋体";color:#000;background:#FFF;}/*对HTML的元素中的字体，颜色，背景色进行初始设置*/
+ul li,ol li{list-style: none;}/*将列表的默认样式清除*/
+a{text-decoration: none;outline: none; blr:expression(this.onFocus=this.blur());}/*将超链接的下划线去掉以及在IE6中点击出现的虚线框去掉*/
+img{border:none;}/*图片的默认边框去掉 */
+table{border-collapse:collapse;border-spacing:0;}
+caption,th,td{font-weight:normal;text-align:left;}
+input,textarea,select,button{font-size:100%;font-family:inherit;margin:0;padding:0;}
+label,button{cursor:pointer}
+textarea{white-space:pre;resize:none;border:1px solid #ececec;}
+article,aside,figcaption,figure,footer,header,hgroup,nav,section,summary{ display: block;}
+/*清除浮动*/
+.clearfix:after{content:""; display:block; clear:both; height:0; line-height:0; visibility:hidden;}
+.clearfix{zoom:1;}/*解决ie6的兼容性问题*/
+.fl{float: left;}
+.fr{float: right;}
+
+wrapper{width:1000px; margin:0 auto;}

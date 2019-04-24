@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#copy{
+				text-align: center;
+				width: 140px;
+				height: 20px;
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<textarea id="copy">复制链接成功</textarea>
+		<input type="button" onclick="copyLink();" value="点击复制"></input>
+	</body>
+	<!--<script src="js/clipboard.min.js"></script>-->
+	 <script language="javascript">
+		function copyLink(){
+			var e = document.getElementById("copy");
+			alert(e)
+			e.select(); // 选择对象
+			document.execCommand("Copy"); // 执行浏览器复制命令
+			alert("复制链接成功！");
+			}
+	 </script>
+</html>

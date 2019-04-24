@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<span class="red">* </span>
+地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：
+<span>
+      <select id="AreaId" name="AreaId" size="1" class="sel">
+           <option>-请选择地区-</option>
+           <option value="1">北京</option>
+           <option value="2">上海</option>
+           <option value="3">深圳</option>
+       </select>
+</span>
+	</body>
+	<script>
+		document.getElementById("AreaId").value;//有效，能得到正确的值.
+
+var index=document.getElementById("AreaId").selectedIndex;//获取当前选择项的索引.
+document.getElementById("AreaId").options[index].value;//获取当前选择项的值.
+
+　var obj=document.getElementById("AreaId");
+
+        for(i=0;i<obj.length;i++) {//下拉框的长度就是它的选项数.
+
+           if(obj[i].selected==true) {
+
+            var text=obj[i].value;//获取当前选择项的值.
+
+　　　　　　}
+
+　　　　}
+        var index=document.getElementById("AreaId").selectedIndex;//获取当前选择项的索引.
+document.getElementById("AreaId").options[index].text;//获取当前选择项的文本.
+
+document.getElementById("AreaId").options[index].innerHTML;//获取当前选择项的文本.
+
+　var obj=document.getElementById("AreaId");
+        for(i=0;i<obj.length;i++) {//下拉框的长度就是它的选项数.
+
+           if(obj[i].selected==true) {
+
+            var text=obj[i].text;//获取当前选择项的文本.
+
+　　　　　　}
+
+　　　　}
+
+document.getElementById("AreaId").text;//注意，这句代码无效，得到的结果为undefined.
+	</script>
+</html>
